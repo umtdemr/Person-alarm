@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 from django.conf import settings
 
-from core.utils.image import read_img
 from core.utils.yolo import get_classes
 from core.utils import (
     get_normalized_distance,
@@ -11,19 +10,22 @@ from core.utils import (
     get_coordinates_for_text, 
 )
 
-def process_img():
+
+def process_img(image_obj):
+    print(image_obj.image.url)
     print(os.getcwd())
     weight_path = 'core/utils/yolo/yolov3.weights'
     cfg_path = 'core/utils/yolo/yolov3.cfg'
-    img_path = 'media/me.jpeg'
+    img_path = image_obj.image.url[1:] # getting the image url without the first backslash
     print(weight_path)
     print(cfg_path)
+    print(img_path)
     yolo = cv2.dnn.readNet(weight_path, cfg_path)
 
     classes = get_classes()
 
     # read img
-    img = read_img(img_path)
+    img = cv2.imread(img_path)
 
     # danger area
     fstart_point = (80, 10)
