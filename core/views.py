@@ -1,5 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from core.utils.image import create_default_image
 
 from core.utils.image_main import process_img
 
@@ -9,7 +11,7 @@ def deneme_view(r):
     return HttpResponse('selam')
 
 
-## TODO : ADD CSRF EXCEPT HERE
+@csrf_exempt
 def upload_file_view(request):
     if request.method == 'POST':
         # name property that should be given should be image
@@ -19,9 +21,12 @@ def upload_file_view(request):
                 "code": "error",
                 "message": "Image should be provided"
             })
+        saved_img = create_default_image(image)
         return JsonResponse({
             "code": "success",
-            "message": "yaşasın ırkımız çine bedel kırkımız",
+            "message": {
+                "image": saved_img.image.url
+            },
         }) 
     return JsonResponse({
         "code": "error",
