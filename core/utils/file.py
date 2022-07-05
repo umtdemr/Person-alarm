@@ -13,12 +13,12 @@ def generate_new_filename(filename: str) -> str:
 
     return new_filename
 
-def default_upload_directory(filename: str) -> str:
+def default_upload_directory(_, filename: str) -> str:
     generated_filename = generate_new_filename(filename)
     path = f'images/default/{generated_filename}'
     return path
     
-def processed_upload_directory(filename: str) -> str:
+def processed_upload_directory(_, filename: str) -> str:
     generated_filename = f'pr_{generate_new_filename(filename)}'
     path = f'images/processed/{generated_filename}'
     return path

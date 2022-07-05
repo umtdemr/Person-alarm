@@ -26,6 +26,8 @@ class ProcessedImage(models.Model):
     processed_image = models.ImageField(upload_to=processed_upload_directory)
     created_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.id
 
 class Image(models.Model):
     image = models.ImageField(upload_to=default_upload_directory)

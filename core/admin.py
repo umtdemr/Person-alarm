@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from core.models import SiteSettings
+from core.models import (
+    SiteSettings,
+    Image,
+    ProcessedImage,
+)
 
 
 class SiteSettingsAdmin(admin.ModelAdmin):
@@ -8,3 +12,5 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SiteSettings, SiteSettingsAdmin)
+admin.site.register(Image)
+admin.site.register(ProcessedImage)
