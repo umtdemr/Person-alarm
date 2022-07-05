@@ -1,3 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
+from core.utils.image_main import process_img
+
+
+def deneme_view(r):
+    # process_img()
+    return HttpResponse('selam')

@@ -3,8 +3,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from core.views import deneme_view
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', deneme_view)
 ]
 
 if settings.DEBUG:
