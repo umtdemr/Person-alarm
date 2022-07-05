@@ -2,11 +2,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-wpc4mgz%4gtujb63k)d_9xdhq5zw-elrac=$t-*4$q8zuqtqaj'
+try:
+    from .settings_local import *
+except Exception as e:
+    raise ValueError('local setting should be provided')
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,14 +47,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'persona_alarm.wsgi.application'
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 AUTH_PASSWORD_VALIDATORS = [

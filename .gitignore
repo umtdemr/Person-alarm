@@ -122,3 +122,4 @@ media/
 
 core/utils/yolo/yolov3.cfg
 core/utils/yolo/yolov3.weights
+persona_alarm/settings_local.py
