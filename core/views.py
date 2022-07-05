@@ -1,8 +1,8 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from core.utils.image import create_default_image
+from django.conf import settings
 
+from core.utils.image import create_default_image
 from core.utils.image_main import process_img
 
 
@@ -25,7 +25,7 @@ def upload_file_view(request):
         return JsonResponse({
             "code": "success",
             "message": {
-                "image": saved_img.image.url
+                "image": f'{settings.SITE_URL}{saved_img.image.url}'
             },
         }) 
     return JsonResponse({
