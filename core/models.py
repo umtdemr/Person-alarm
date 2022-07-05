@@ -27,10 +27,11 @@ class ProcessedImage(models.Model):
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Image(models.Model):
     image = models.ImageField(upload_to=default_upload_directory)
+    is_processed = models.BooleanField(default=False)
     related_img = models.OneToOneField(
         ProcessedImage,
         on_delete=models.CASCADE,
