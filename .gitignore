@@ -119,3 +119,6 @@ media/
 # **/migrations/**
 # !**/migrations
 # !**/migrations/__init__.py
+
+core/utils/yolo/yolov3.cfg
+core/utils/yolo/yolov3.weights
