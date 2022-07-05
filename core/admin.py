@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from core.models import SiteSettings
+
+
+class SiteSettingsAdmin(admin.ModelAdmin):
+    pass 
+
+
+admin.site.register(SiteSettings, SiteSettingsAdmin)
