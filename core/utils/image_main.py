@@ -11,11 +11,11 @@ from core.utils import (
     get_coordinates_for_text, 
 )
 
-
+# TODO: generate danger area from settings obj
 def process_img(image_obj):
     """
         Run yolov3 algorithm for recognizing persons and \n
-        calculating their distance from danger area
+        calculating `their distance` from danger area
     """
     print(image_obj.image.url)
     print(os.getcwd())
