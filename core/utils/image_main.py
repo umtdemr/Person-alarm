@@ -1,4 +1,5 @@
 import os
+import uuid
 import cv2
 import numpy as np
 from django.conf import settings
@@ -102,7 +103,7 @@ def process_img(image_obj):
         cv2.rectangle(img, (x, y), (x+w, y+h), color, 4)
         cv2.putText(img, f'%{confi_percent} {label}', (x, y - 10), font, 3, (255, 255, 255), 4)
 
-
-    writed = cv2.imwrite('media/deneme.jpeg', img)
+    final_filename = f'{str(uuid.uuid4()).replace("-", "")}.jpeg'
+    writed = cv2.imwrite(f'media/{final_filename}', img)
     print(writed)
-    return writed
+    return writed, final_filename
