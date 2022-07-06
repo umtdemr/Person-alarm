@@ -21,8 +21,8 @@ def create_default_image(image, process_it=False) -> Image:
         image=image,
         is_processed=process_it
     )
-    writed, final_filename = process_img(image_obj)
     if process_it:
+        writed, final_filename = process_img(image_obj)
         if writed:
             # Open processed image for saving it to model
             processed_img = PImage.open(f'media/{final_filename}')
