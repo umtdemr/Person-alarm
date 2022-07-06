@@ -37,7 +37,6 @@ def create_default_image(image, process_it=False) -> Image:
         print(f'Successfully created processed img: {processed_obj}')
         print('deleting temp image')
         os.remove(f'media/{final_filename}')
+        return image_obj, processed_obj
 
-
-    ## TODO: process img
-    return image_obj
+    return image_obj, None

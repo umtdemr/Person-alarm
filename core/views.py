@@ -21,11 +21,12 @@ def upload_file_view(request):
                 "code": "error",
                 "message": "Image should be provided"
             })
-        saved_img = create_default_image(image)
+        saved_img, processed_img = create_default_image(image)
         return JsonResponse({
             "code": "success",
             "message": {
-                "image": f'{settings.SITE_URL}{saved_img.image.url}'
+                "image": f'{settings.SITE_URL}{saved_img.image.url}',
+                "processed_img": f'{settings.SITE_URL}{processed_img.processed_image.url}' if processed_img else '',
             },
         }) 
     return JsonResponse({
