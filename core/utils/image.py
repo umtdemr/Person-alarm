@@ -15,7 +15,8 @@ def read_img(path):
 def create_default_image(image, process_it=False) -> Image:
     """
         Creates image from provided image\n
-        If process it set to true, process function runs
+        If process it set to true, process function runs and\n
+        generates a processed image from given image
     """
     image_obj = Image.objects.create(
         image=image,

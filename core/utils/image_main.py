@@ -13,6 +13,10 @@ from core.utils import (
 
 
 def process_img(image_obj):
+    """
+        Run yolov3 algorithm for recognizing persons and \n
+        calculating their distance from danger area
+    """
     print(image_obj.image.url)
     print(os.getcwd())
     weight_path = 'core/utils/yolo/yolov3.weights'
