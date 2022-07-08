@@ -17,6 +17,7 @@ class SiteSettings(SingletonAbstract):
     resize = models.BooleanField(default=False)
     resize_width = models.PositiveIntegerField(blank=True, null=True)
     resize_height = models.PositiveIntegerField(blank=True, null=True)
+    distance_limit = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return 'Site setting'
