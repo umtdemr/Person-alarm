@@ -104,7 +104,10 @@ def process_img(image_obj):
             # get distance between two points of line
             distance = cv2.norm(src1=line_positions[0], src2=line_positions[1])
             if distance <= settings_obj.distance_limit:
-                pass
+                tele_bot = TelegramBot()
+                tele_bot.send_text(
+                    "Limit aşıldı"
+                )
             if class_id == 0: 
                 found += 1
             # put text to 
