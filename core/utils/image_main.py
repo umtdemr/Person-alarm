@@ -2,10 +2,8 @@ import os
 import uuid
 import cv2
 import numpy as np
-from django.conf import settings
 
 from core.models import SiteSettings
-from core.utils.tele_bot import TelegramBot
 from core.utils.yolo import get_classes
 from core.utils import (
     get_normalized_distance,
@@ -30,6 +28,7 @@ def process_img(image_obj):
         calculating `their distance` from danger area
     """
     settings_obj = SiteSettings.objects.first()
+    is_limit_exceeded = False
     print(image_obj.image.url)
     print(os.getcwd())
     weight_path = 'core/utils/yolo/yolov3.weights'
@@ -104,10 +103,7 @@ def process_img(image_obj):
             # get distance between two points of line
             distance = cv2.norm(src1=line_positions[0], src2=line_positions[1])
             if distance <= settings_obj.distance_limit:
-                tele_bot = TelegramBot()
-                tele_bot.send_text(
-                    "Limit aşıldı"
-                )
+                is_limit_exceeded = True
             if class_id == 0: 
                 found += 1
             # put text to 
@@ -127,4 +123,4 @@ def process_img(image_obj):
     final_filename = f'{str(uuid.uuid4()).replace("-", "")}.jpeg'
     writed = cv2.imwrite(f'media/{final_filename}', img)
     print(writed)
-    return writed, final_filename
+    return writed, final_filename, is_limit_exceeded

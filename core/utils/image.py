@@ -31,7 +31,7 @@ def create_default_image(image, process_it=True) -> Image:
     )
     
     if process_it:
-        writed, final_filename = process_img(image_obj)
+        writed, final_filename, is_limit_exceeded = process_img(image_obj)
         if writed:
             # Open processed image for saving it to model
             processed_img = PImage.open(f'media/{final_filename}')
@@ -48,11 +48,12 @@ def create_default_image(image, process_it=True) -> Image:
             image_obj.is_processed = True
             image_obj.save()
 
-            telegram_obj.send_photo(
-                processed_obj.processed_image.url[1:],
-                reply_message_id=message.message_id,
-                caption="processed image",
-            )
+            if is_limit_exceeded:
+                telegram_obj.send_photo(
+                    processed_obj.processed_image.url[1:],
+                    reply_message_id=message.message_id,
+                    caption="limit aşıldı",
+                )
 
             print(f'Successfully created processed img: {processed_obj}')
             print('deleting temp image')
