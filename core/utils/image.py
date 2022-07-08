@@ -3,9 +3,11 @@ import os
 from io import BytesIO
 from PIL import Image as PImage
 from django.core.files.images import ImageFile
+from django.conf import settings
 
 from core.models import Image, ProcessedImage
 from core.utils.image_main import process_img
+from core.utils.tele_bot import TelegramBot
 
 
 def read_img(path):
@@ -22,6 +24,12 @@ def create_default_image(image, process_it=False) -> Image:
         image=image,
         is_processed=process_it
     )
+    telegram_obj = TelegramBot()
+    message = telegram_obj.send_photo(
+        image_obj.image.url[1:],
+        caption="motion captured"
+    )
+    
     if process_it:
         writed, final_filename = process_img(image_obj)
         if writed:
@@ -39,6 +47,12 @@ def create_default_image(image, process_it=False) -> Image:
             image_obj.related_img = processed_obj
             image_obj.is_processed = True
             image_obj.save()
+
+            telegram_obj.send_photo(
+                processed_obj.processed_image.url[1:],
+                reply_message_id=message.message_id,
+                caption="processed image",
+            )
 
             print(f'Successfully created processed img: {processed_obj}')
             print('deleting temp image')

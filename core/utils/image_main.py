@@ -5,6 +5,7 @@ import numpy as np
 from django.conf import settings
 
 from core.models import SiteSettings
+from core.utils.tele_bot import TelegramBot
 from core.utils.yolo import get_classes
 from core.utils import (
     get_normalized_distance,
@@ -28,6 +29,7 @@ def process_img(image_obj):
         Run yolov3 algorithm for recognizing persons and \n
         calculating `their distance` from danger area
     """
+    settings_obj = SiteSettings.objects.first()
     print(image_obj.image.url)
     print(os.getcwd())
     weight_path = 'core/utils/yolo/yolov3.weights'
@@ -101,6 +103,8 @@ def process_img(image_obj):
             
             # get distance between two points of line
             distance = cv2.norm(src1=line_positions[0], src2=line_positions[1])
+            if distance <= settings_obj.distance_limit:
+                pass
             if class_id == 0: 
                 found += 1
             # put text to 
