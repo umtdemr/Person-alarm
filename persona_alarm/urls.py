@@ -4,14 +4,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from core.views import (
-    deneme_view, 
+    home_view,
     upload_file_view
 )
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', deneme_view),
+    path('', home_view),
     path('upload-img/', upload_file_view),
 ]
 

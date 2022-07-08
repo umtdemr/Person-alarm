@@ -6,9 +6,12 @@ from core.utils.image import create_default_image
 from core.utils.image_main import process_img
 
 
-def deneme_view(r):
+def home_view(_):
     # process_img()
-    return HttpResponse('selam')
+    return JsonResponse({
+        "code": "info",
+        "message": "app is running. waiting for images..."
+    })
 
 
 @csrf_exempt
