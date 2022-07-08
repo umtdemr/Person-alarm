@@ -4,12 +4,23 @@ import cv2
 import numpy as np
 from django.conf import settings
 
+from core.models import SiteSettings
 from core.utils.yolo import get_classes
 from core.utils import (
     get_normalized_distance,
     calculate_for_line, 
     get_coordinates_for_text, 
 )
+
+def get_danger_area():
+    """ get danger are points from SiteSettings """
+    settings_obj = SiteSettings.objects.first()
+    x = settings_obj.rect_x
+    y = settings_obj.rect_y
+    w = x + settings_obj.rect_w
+    h = y + settings_obj.rect_h
+    return (x, y), (w, h)
+
 
 # TODO: generate danger area from settings obj
 def process_img(image_obj):
@@ -33,8 +44,7 @@ def process_img(image_obj):
     img = cv2.imread(img_path)
 
     # danger area
-    fstart_point = (80, 10)
-    fend_point = (300, 400)
+    fstart_point, fend_point = get_danger_area()
     rect_danger = cv2.rectangle(img, fstart_point, fend_point, (0, 0, 255), -1)
 
     # yolo algorithm
