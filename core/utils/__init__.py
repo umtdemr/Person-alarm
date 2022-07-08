@@ -1,5 +1,6 @@
 import cv2
 
+
 def cal_mid_point(pos):
     """
         Calculates middle point of rectangle
@@ -55,5 +56,7 @@ def get_color_for_distance(distance: int):
     else:
         return (0, 0, 255)
 
-def get_coordinates_for_text(img, found=1):
-    return (1020,found * 70)
+def get_coordinates_for_text(img, found, settings_obj):
+    location_x = settings_obj.image_width - 250
+    location_y = int(settings_obj.image_height / 10) * found
+    return (location_x, location_y)

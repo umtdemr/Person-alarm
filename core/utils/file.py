@@ -1,4 +1,3 @@
-import imp
 from typing import TYPE_CHECKING
 import uuid
 from os.path import splitext

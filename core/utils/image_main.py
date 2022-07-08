@@ -110,11 +110,11 @@ def process_img(image_obj):
             cv2.putText(
                 line, 
                 f'd={get_normalized_distance(line_positions[0], line_positions[1])}',
-                get_coordinates_for_text(img, found),
+                get_coordinates_for_text(img, found, settings_obj),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 2,
                 color,
-                5
+                4
             )
 
         cv2.rectangle(img, (x, y), (x+w, y+h), color, 4)
