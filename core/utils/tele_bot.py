@@ -15,7 +15,7 @@ class TelegramBot():
     def get_me(self):
         return self._bot.get_me()
     
-    def send_photo(self, path: str,reply_message_id: int = None, caption: str = ""):
+    def send_photo(self, path: str, reply_message_id: int = None, caption: str = ""):
         opened_file = open(path, 'rb')
         message = self._bot.send_photo(
             chat_id=settings.T_USER,
@@ -26,3 +26,9 @@ class TelegramBot():
         opened_file.close()
         return message
 
+    def send_text(self, text: str, reply_message_id: int = None):
+        return self._bot.send_message(
+            chat_id=settings.T_USER,
+            text=text,
+            reply_to_message_id=reply_message_id
+        )
