@@ -61,3 +61,16 @@ def create_default_image(image, process_it=True) -> Image:
             os.remove(f'media/{final_filename}')
             return image_obj, processed_obj
     return image_obj, None
+
+
+def capture_photo():
+    count = 0
+    cap = cv2.VideoCapture(0)
+    while True:
+        print(count)
+        count += 1
+
+        ret, frame = cap.read()
+        if count > 20:
+            writed = cv2.imwrite(f'media/captue.jpeg', frame)
+            return writed

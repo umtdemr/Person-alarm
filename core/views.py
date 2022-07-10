@@ -1,8 +1,10 @@
+from time import sleep
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.files.images import ImageFile
 from django.conf import settings
 
-from core.utils.image import create_default_image
+from core.utils.image import capture_photo, create_default_image
 from core.utils.image_main import process_img
 
 
@@ -36,3 +38,21 @@ def upload_file_view(request):
         "code": "error",
         "message": "only post requests are welcome",
     }) 
+
+
+@csrf_exempt
+def capture_photo_view(request):
+    if request.method == "POST":
+        writed = capture_photo()
+        if writed:
+            captured_image_file = open('media/captue.jpeg', 'rb')
+            captured_image = ImageFile(captured_image_file)
+            saved_img, processed_img = create_default_image(captured_image)
+            return JsonResponse({
+                "captured": writed,
+                "image": f'{settings.SITE_URL}{saved_img.image.url}',
+                "processed_img": f'{settings.SITE_URL}{processed_img.processed_image.url}' if processed_img else '',
+            })
+        return JsonResponse({
+            "captured": writed
+        })
