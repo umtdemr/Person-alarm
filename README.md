@@ -6,3 +6,4 @@ Person alarm detect is a API service for detecting distance between the detected
 ## TODO
 
 - [ ] Process captured image directly 
+- [ ] Increase quality of captured image
