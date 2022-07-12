@@ -20,7 +20,7 @@ class SingletonAdmin(admin.ModelAdmin):
         return False
 
 
-class SiteSettingsAdmin(admin.ModelAdmin):
+class SiteSettingsAdmin(SingletonAdmin):
     pass 
 
 
