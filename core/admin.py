@@ -4,6 +4,7 @@ from core.models import (
     SiteSettings,
     Image,
     ProcessedImage,
+    TelegramData
 )
 
 
@@ -24,6 +25,11 @@ class SiteSettingsAdmin(SingletonAdmin):
     pass 
 
 
+class TelegramDataAdmin(SingletonAdmin):
+    pass 
+
+
 admin.site.register(SiteSettings, SiteSettingsAdmin)
+admin.site.register(TelegramData, TelegramDataAdmin)
 admin.site.register(Image)
 admin.site.register(ProcessedImage)
