@@ -45,3 +45,15 @@ class Image(models.Model):
         if self.is_processed:
             return f'Processed {self.id}'
         return f'Default {self.id}'
+
+
+class TelegramData(SingletonAbstract):
+    """
+    A model for sending data those from sensors
+    """
+
+    fire_info = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Fire: {self.fire_info}'
+ 
