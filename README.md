@@ -6,7 +6,7 @@ Person alarm detect is a API service for detecting distance between the detected
 ## Starting app
 
 * Clone the repository
-* Create ```settings_local.py```inse persona_alarm
+* Create ```settings_local.py``` inside persona_alarm directory
 * Migrate db ```python maange.py migrate```
 * Create settings and telegram data on admin
 * Run the app: ```python manage.py runserver```
