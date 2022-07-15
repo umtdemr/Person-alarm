@@ -16,5 +16,5 @@ Person alarm detect is a API service for detecting distance between the detected
 
 - [x] Process captured image directly 
 - [x] Increase quality of captured image
-  > I can't do anything about it with code. Camera's cold time effect the quality directly
+  > I can't do anything about it with code. The cold time of camera effects the quality directly
 
