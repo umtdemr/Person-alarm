@@ -10,6 +10,7 @@ Person alarm detect is a API service for detecting distance between the detected
 * Migrate db ```python maange.py migrate```
 * Create settings and telegram data on admin
 * Run the app: ```python manage.py runserver```
+  > If you want to serve the app locally and networking will be done in same host, you should run the app like: ```python manage.py runserver 0.0.0.0:8000``` 
 * Start the bot for listening commands: ```python manage.py startbot```
 
 ## TODO
