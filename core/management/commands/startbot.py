@@ -26,17 +26,17 @@ def handler_help(update: Update, context: CallbackContext):
         /danger x 100 y 20 w 200 h 400 : tehlikeli alanı belirtmek için.
     """)
 
-def start(update: Update, context: CallbackContext):
+def handler_start(update: Update, context: CallbackContext):
     update.message.reply_text('bot başladı')
 
 
-def get_sensors_data(update: Update, context: CallbackContext):
+def handler_get_sensors_data(update: Update, context: CallbackContext):
     telegram_data_obj = TelegramData.objects.first()
     update.message.reply_text(f"""
         alev: {telegram_data_obj.fire_info}
     """)
 
-def draw_danger_area(update: Update, context: CallbackContext):
+def handler_draw_danger_area(update: Update, context: CallbackContext):
     try:
         danger_area = parse_danger_area_data(context.args)
         try:
@@ -63,9 +63,9 @@ class Command(BaseCommand):
         dp = updater.dispatcher
 
         dp.add_handler(CommandHandler("help", handler_help))
-        dp.add_handler(CommandHandler("start", start))
-        dp.add_handler(CommandHandler("data", get_sensors_data))
-        dp.add_handler(CommandHandler("danger", draw_danger_area))
+        dp.add_handler(CommandHandler("start", handler_start))
+        dp.add_handler(CommandHandler("data", handler_get_sensors_data))
+        dp.add_handler(CommandHandler("danger", handler_draw_danger_area))
 
         updater.start_polling()
         updater.idle()
