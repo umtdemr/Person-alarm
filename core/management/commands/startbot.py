@@ -19,6 +19,9 @@ def parse_danger_area_data(args):
     h = int(args[args.index("h") + 1])
     return [x, y, x + w, y + h]
 
+def parse_distance(args):
+    distance = args[0]
+    return int(distance)
 
 def handler_help(update: Update, context: CallbackContext):
     update.message.reply_text(""" 
@@ -53,6 +56,20 @@ def handler_draw_danger_area(update: Update, context: CallbackContext):
         update.message.reply_text('Parse edilirken hata. Örnek: /danger x 100 y 100 w 100 h 100')
 
 
+def handler_distance_limit(update: Update, context: CallbackContext):
+    try: 
+        distance = parse_distance(context.args)
+        if distance < 0: 
+            update.message.reply_text('uzaklık 0 dan küçük olamaz.')
+            return
+        settings_obj = SiteSettings.objects.first()
+        settings_obj.distance_limit = distance
+        settings_obj.save()
+        update.message.reply_text(f'Uzaklık {distance} px olarak ayarlandı')
+    except Exception:
+        update.message.reply_text('Uzaklık parse edilirken hata. Lütfen pozitif tam sayı değeri giriniz.')
+
+
 class Command(BaseCommand):
     help = 'Starts telegram bot for getting sensors data'
 
@@ -66,6 +83,7 @@ class Command(BaseCommand):
         dp.add_handler(CommandHandler("start", handler_start))
         dp.add_handler(CommandHandler("data", handler_get_sensors_data))
         dp.add_handler(CommandHandler("danger", handler_draw_danger_area))
+        dp.add_handler(CommandHandler("distance", handler_distance_limit))
 
         updater.start_polling()
         updater.idle()
