@@ -20,6 +20,12 @@ def parse_danger_area_data(args):
     return [x, y, x + w, y + h]
 
 
+def handler_help(update: Update, context: CallbackContext):
+    update.message.reply_text(""" 
+        Person alarm bot    
+        /danger x 100 y 20 w 200 h 400 : tehlikeli alanı belirtmek için.
+    """)
+
 def start(update: Update, context: CallbackContext):
     update.message.reply_text('bot başladı')
 
@@ -56,6 +62,7 @@ class Command(BaseCommand):
         updater = Updater(settings.T_TOKEN, use_context=True)
         dp = updater.dispatcher
 
+        dp.add_handler(CommandHandler("help", handler_help))
         dp.add_handler(CommandHandler("start", start))
         dp.add_handler(CommandHandler("data", get_sensors_data))
         dp.add_handler(CommandHandler("danger", draw_danger_area))
