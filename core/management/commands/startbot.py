@@ -26,7 +26,8 @@ def parse_distance(args):
 def handler_help(update: Update, context: CallbackContext):
     update.message.reply_text(""" 
         Person alarm bot    
-        /danger x 100 y 20 w 200 h 400 : tehlikeli alanı belirtmek için.
+        /danger x 100 y 20 w 200 h 400 : tehlikeli alanı çizer.
+        /distance 100 : uzaklığı 100px olarak ayarlar
     """)
 
 def handler_start(update: Update, context: CallbackContext):
@@ -49,7 +50,7 @@ def handler_draw_danger_area(update: Update, context: CallbackContext):
             settings_obj.rect_w = danger_area[2]
             settings_obj.rect_h = danger_area[3]
             settings_obj.save()
-            update.message.reply_text('Tehlikeli alan oluşturuldu')
+            update.message.reply_text('Tehlikeli alan düzenlendi')
         except Exception:
             update.message.reply_text('Veritabanına kaydedilirken hata...')
     except Exception:
