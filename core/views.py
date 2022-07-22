@@ -24,11 +24,13 @@ def upload_file_view(request):
         if not image:
             return JsonResponse({
                 "code": "error",
+                "limit": False,
                 "message": "Image should be provided"
             })
-        saved_img, processed_img = create_default_image(image)
+        saved_img, processed_img, limit = create_default_image(image)
         return JsonResponse({
             "code": "success",
+            "limit": limit,
             "message": {
                 "image": f'{settings.SITE_URL}{saved_img.image.url}',
                 "processed_img": f'{settings.SITE_URL}{processed_img.processed_image.url}' if processed_img else '',
@@ -36,6 +38,7 @@ def upload_file_view(request):
         }) 
     return JsonResponse({
         "code": "error",
+        "limit": False,
         "message": "only post requests are welcome",
     }) 
 

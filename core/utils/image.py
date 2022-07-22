@@ -59,8 +59,8 @@ def create_default_image(image, process_it=True) -> Image:
             print('deleting temp image')
             # delete unneccessary image cuz it is duplicated
             os.remove(f'media/{final_filename}')
-            return image_obj, processed_obj
-    return image_obj, None
+            return image_obj, processed_obj, is_limit_exceeded
+    return image_obj, None, False
 
 
 def capture_photo():
