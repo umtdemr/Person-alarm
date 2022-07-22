@@ -114,11 +114,11 @@ def process_img(image_obj):
                 cv2.FONT_HERSHEY_SIMPLEX,
                 2,
                 color,
-                4
+                3
             )
 
         cv2.rectangle(img, (x, y), (x+w, y+h), color, 4)
-        cv2.putText(img, f'{label}', (x, y - 10), font, 1, (255, 255, 255), 2)
+        cv2.putText(img, f'{label}', (x, y - 10), font, 2, (255, 255, 255), 3)
 
     final_filename = f'{str(uuid.uuid4()).replace("-", "")}.jpeg'
     writed = cv2.imwrite(f'media/{final_filename}', img)
