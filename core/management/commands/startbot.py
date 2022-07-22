@@ -28,6 +28,7 @@ def handler_help(update: Update, context: CallbackContext):
         Person alarm bot    
         /danger x 100 y 20 w 200 h 400 : tehlikeli alanı çizer.
         /distance 100 : uzaklığı 100px olarak ayarlar
+        /getsettings : ayarları döndürür.
     """)
 
 def handler_start(update: Update, context: CallbackContext):
