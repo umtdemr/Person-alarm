@@ -70,6 +70,19 @@ def handler_distance_limit(update: Update, context: CallbackContext):
     except Exception:
         update.message.reply_text('Uzaklık parse edilirken hata. Lütfen pozitif tam sayı değeri giriniz.')
 
+def handler_get_settings(update: Update, context: CallbackContext):
+    try:
+        settings_obj = SiteSettings.objects.first()
+        update.message.reply_text(f"""Site ayarları
+        -----------------
+        Tehlikeli alan: x: {settings_obj.rect_x}, y: {settings_obj.rect_y}, w: {settings_obj.rect_w - settings_obj.rect_x}, h: {settings_obj.rect_h - settings_obj.rect_y}
+        Uzaklık Limiti: {settings_obj.distance_limit}
+        """)
+
+    except Exception:
+        update.message.reply_text('Hata...')
+    
+
 
 class Command(BaseCommand):
     help = 'Starts telegram bot for getting sensors data'
@@ -85,6 +98,7 @@ class Command(BaseCommand):
         dp.add_handler(CommandHandler("data", handler_get_sensors_data))
         dp.add_handler(CommandHandler("danger", handler_draw_danger_area))
         dp.add_handler(CommandHandler("distance", handler_distance_limit))
+        dp.add_handler(CommandHandler("getsettings", handler_get_settings))
 
         updater.start_polling()
         updater.idle()
