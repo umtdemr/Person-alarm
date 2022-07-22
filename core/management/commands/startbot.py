@@ -76,7 +76,8 @@ def handler_get_settings(update: Update, context: CallbackContext):
         update.message.reply_text(f"""Site ayarları
         -----------------
         Tehlikeli alan: x: {settings_obj.rect_x}, y: {settings_obj.rect_y}, w: {settings_obj.rect_w - settings_obj.rect_x}, h: {settings_obj.rect_h - settings_obj.rect_y}
-        Uzaklık Limiti: {settings_obj.distance_limit}
+        Uzaklık limiti: {settings_obj.distance_limit}
+        Resim boyutu: {settings_obj.image_width}x{settings_obj.image_height}
         """)
 
     except Exception:
