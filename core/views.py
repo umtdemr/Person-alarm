@@ -1,10 +1,10 @@
-from time import sleep
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.images import ImageFile
 from django.conf import settings
-from core.models import SiteSettings
 
+from core.models import SiteSettings
+from core.utils.graph import view_graph
 from core.utils.image import capture_photo, create_default_image
 from core.utils.image_main import process_img
 
@@ -76,3 +76,8 @@ def capture_photo_view(request):
         return JsonResponse({
             "captured": writed
         })
+
+
+def open_graph(r):
+    view_graph()
+    return JsonResponse({ "code": "success", "message": "opened graph in new tab" })

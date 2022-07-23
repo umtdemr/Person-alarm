@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 from core.views import (
     capture_photo_view,
     home_view,
-    upload_file_view
+    upload_file_view,
+    open_graph
 )
 
 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('', home_view),
     path('upload-img/', upload_file_view),
     path('capture-photo/', capture_photo_view),
+    path('graph/', open_graph),
 ]
 
 if settings.DEBUG:

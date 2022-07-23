@@ -43,7 +43,7 @@ class Image(models.Model):
         blank=True,
         null=True,
     )
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         if self.is_processed:
