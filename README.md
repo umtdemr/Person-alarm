@@ -20,3 +20,4 @@ Person alarm detect is a API service for detecting distance between the detected
   > I can't do anything about it with code. The cold time of camera effects the quality directly
 - [x] Delete percent of confidence from determined stuff 
 - [x] Set on off control with telegram
+- [ ] Change line drawing
