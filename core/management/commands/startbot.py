@@ -10,6 +10,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
 from core.models import TelegramData, SiteSettings
+from core.utils.graph import send_graph_photo
 
 
 def parse_danger_area_data(args):
@@ -101,6 +102,9 @@ def handler_is_on_switch(update: Update, context: CallbackContext):
     except Exception:
         update.message.reply_text('Hata...')
 
+def handler_graph(update: Update, context: CallbackContext):
+    send_graph_photo()
+
 
 class Command(BaseCommand):
     help = 'Starts telegram bot for getting sensors data'
@@ -118,6 +122,7 @@ class Command(BaseCommand):
         dp.add_handler(CommandHandler("distance", handler_distance_limit))
         dp.add_handler(CommandHandler("getsettings", handler_get_settings))
         dp.add_handler(CommandHandler("switch", handler_is_on_switch))
+        dp.add_handler(CommandHandler("graph", handler_graph))
 
         updater.start_polling()
         updater.idle()
