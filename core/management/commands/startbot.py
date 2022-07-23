@@ -84,6 +84,20 @@ def handler_get_settings(update: Update, context: CallbackContext):
     except Exception:
         update.message.reply_text('Hata...')
     
+def handler_is_on_switch(update: Update, context: CallbackContext):
+    try:
+        settings_obj = SiteSettings.objects.first()
+        message = ""
+        if settings_obj.is_on:
+            settings_obj.is_on = False
+            message = "Fotoğraf işleme kapatıldı"
+        else:
+            message = "Fotoğraf işleme açıldı"
+            settings_obj.is_on = True
+        settings_obj.save()
+        update.message.reply_text(message)
+    except Exception:
+        update.message.reply_text('Hata...')
 
 
 class Command(BaseCommand):
@@ -101,6 +115,7 @@ class Command(BaseCommand):
         dp.add_handler(CommandHandler("danger", handler_draw_danger_area))
         dp.add_handler(CommandHandler("distance", handler_distance_limit))
         dp.add_handler(CommandHandler("getsettings", handler_get_settings))
+        dp.add_handler(CommandHandler("switch", handler_is_on_switch))
 
         updater.start_polling()
         updater.idle()
