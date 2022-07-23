@@ -5,7 +5,7 @@ from django.utils.timezone import localtime
 from pytz import timezone
 
 from core.models import Image
-
+from core.utils.tele_bot import TelegramBot
 
 
 def get_captured_data():
@@ -30,14 +30,11 @@ def get_captured_data():
 
     # print(full_dates.find())
     now = datetime.now()
-    fig = px.scatter(x=new_x, y=new_y, range_x=[now-timedelta(days=7), now])
-    fig.update_layout(
-        yaxis = dict(
-            showticklabels=True
-        )
+    fig = px.scatter(x=new_x, y=new_y, range_x=[now-timedelta(days=7), now], title="Haftalık hareketlilik")
+    img_path = "media/fig.jpeg"
+    fig.write_image(img_path)
+    telegram_obj = TelegramBot()
+    message = telegram_obj.send_photo(
+        img_path,
+        caption="graph"
     )
-    # fig.update_traces(marker=dict(size=7,
-    #                           line=dict(width=2,
-    #                                     color='DarkSlateGrey')),
-    #               selector=dict(mode='markers'))
-    fig.show()
