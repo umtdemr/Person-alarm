@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from core.abstract_models import SingletonAbstract
 from core.utils.file import (
@@ -43,7 +44,7 @@ class Image(models.Model):
         blank=True,
         null=True,
     )
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
         if self.is_processed:

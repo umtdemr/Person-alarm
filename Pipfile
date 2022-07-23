@@ -13,6 +13,7 @@ pillow = "*"
 python-telegram-bot = "==13.13"
 plotly = "*"
 kaleido = "*"
+pandas = "*"
 
 [dev-packages]
 
