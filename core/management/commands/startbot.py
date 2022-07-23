@@ -31,6 +31,7 @@ def handler_help(update: Update, context: CallbackContext):
         /distance 100 : uzaklığı 100px olarak ayarlar
         /getsettings : ayarları döndürür.
         /switch : fotoğraf işlemeyi kapatıp açar
+        /graph : haftalık hareketlilik grafiğini getirir.
     """)
 
 def handler_start(update: Update, context: CallbackContext):

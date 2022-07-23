@@ -6,7 +6,11 @@ from core.utils.tele_bot import TelegramBot
 
 
 def get_captured_data():
-    data = Image.objects.all().order_by('created_at')
+    now = datetime.now()
+    week_ago = now - timedelta(days=7)
+    data = Image.objects.filter(
+        created_at__gte=week_ago
+    ).order_by('created_at')
     times = []
     full_dates = {}
 
@@ -26,8 +30,7 @@ def get_captured_data():
         new_x.append(full_dates.get(item.get('parent')))
 
     # print(full_dates.find())
-    now = datetime.now()
-    fig = px.scatter(x=new_x, y=new_y, range_x=[now-timedelta(days=7), now], title="Haftalık hareketlilik")
+    fig = px.scatter(x=new_x, y=new_y, range_x=[week_ago, now], title="Haftalık hareketlilik")
     return fig
 
 
