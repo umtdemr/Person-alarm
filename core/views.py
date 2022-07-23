@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.images import ImageFile
 from django.conf import settings
+from core.models import SiteSettings
 
 from core.utils.image import capture_photo, create_default_image
 from core.utils.image_main import process_img
@@ -19,32 +20,39 @@ def home_view(_):
 @csrf_exempt
 def upload_file_view(request):
     if request.method == 'POST':
-        # name property that should be given should be image
-        image = request.FILES.get('image')  
-        if not image:
+        settings_obj = SiteSettings.objects.first()
+        if settings_obj.is_on:
+            # name property that should be given should be image
+            image = request.FILES.get('image')  
+            if not image:
+                return JsonResponse({
+                    "code": "error",
+                    "limit": False,
+                    "message": "Image should be provided"
+                })
+            try:
+                saved_img, processed_img, limit = create_default_image(image)
+                return JsonResponse({
+                    "code": "success",
+                    "limit": limit,
+                    "message": {
+                        "image": f'{settings.SITE_URL}{saved_img.image.url}',
+                        "processed_img": f'{settings.SITE_URL}{processed_img.processed_image.url}' if processed_img else '',
+                    },
+                }) 
+            except Exception as e:
+                print("Fotoğraf işlenirken hata meydana geldi")
+                return JsonResponse({
+                    "code": "error",
+                    "limit": False,
+                    "message": f"An error has occurred. {e}"
+                }) 
+        else:
             return JsonResponse({
-                "code": "error",
+                "code": "warning",
                 "limit": False,
-                "message": "Image should be provided"
+                "message": "Processing img is disabled",
             })
-        try:
-            saved_img, processed_img, limit = create_default_image(image)
-            return JsonResponse({
-                "code": "success",
-                "limit": limit,
-                "message": {
-                    "image": f'{settings.SITE_URL}{saved_img.image.url}',
-                    "processed_img": f'{settings.SITE_URL}{processed_img.processed_image.url}' if processed_img else '',
-                },
-            }) 
-        except Exception as e:
-            print("Fotoğraf işlenirken hata meydana geldi")
-            return JsonResponse({
-                "code": "error",
-                "limit": False,
-                "message": f"An error has occurred. {e}"
-            }) 
-
     return JsonResponse({
         "code": "error",
         "limit": False,
