@@ -16,7 +16,10 @@ def get_captured_data():
     for dt in data:
         cr_date = dt.created_at
         full_dates[dt.pk] =  cr_date
-        times.append({"parent": dt.pk, "time": time(cr_date.hour, cr_date.minute)})
+        old_hour = cr_date.hour + 3
+        if old_hour > 23:
+            old_hour = old_hour - 23
+        times.append({"parent": dt.pk, "time": time(old_hour, cr_date.minute)})
 
     sorted_times = sorted(times, key=lambda d: d['time']) 
     new_x = []
