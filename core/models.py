@@ -18,6 +18,10 @@ class SiteSettings(SingletonAbstract):
     resize_width = models.PositiveIntegerField(blank=True, null=True)
     resize_height = models.PositiveIntegerField(blank=True, null=True)
     distance_limit = models.PositiveIntegerField(blank=True, null=True)
+    is_on = models.BooleanField(
+        default=True,
+        help_text="Control for processing img"
+    )
 
     def __str__(self):
         return 'Site setting'
