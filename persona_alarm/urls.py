@@ -7,7 +7,7 @@ from core.views import (
     capture_photo_view,
     home_view,
     upload_file_view,
-    deneme_graph
+    open_graph
 )
 
 
@@ -16,7 +16,7 @@ urlpatterns = [
     path('', home_view),
     path('upload-img/', upload_file_view),
     path('capture-photo/', capture_photo_view),
-    path('dd/', deneme_graph),
+    path('graph/', open_graph),
 ]
 
 if settings.DEBUG:

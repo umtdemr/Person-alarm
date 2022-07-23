@@ -1,9 +1,6 @@
 from datetime import datetime, timedelta, time
 import plotly.express as px
 
-from django.utils.timezone import localtime
-from pytz import timezone
-
 from core.models import Image
 from core.utils.tele_bot import TelegramBot
 
@@ -31,10 +28,17 @@ def get_captured_data():
     # print(full_dates.find())
     now = datetime.now()
     fig = px.scatter(x=new_x, y=new_y, range_x=[now-timedelta(days=7), now], title="Haftalık hareketlilik")
+    return fig
+
+
+def send_graph_photo():
+    fig = get_captured_data()
     img_path = "media/fig.jpeg"
     fig.write_image(img_path)
     telegram_obj = TelegramBot()
-    message = telegram_obj.send_photo(
-        img_path,
-        caption="graph"
-    )
+    message = telegram_obj.send_photo(img_path)
+    return message
+
+def view_graph():
+    fig = get_captured_data()
+    fig.show()
