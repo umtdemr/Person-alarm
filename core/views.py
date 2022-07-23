@@ -27,15 +27,24 @@ def upload_file_view(request):
                 "limit": False,
                 "message": "Image should be provided"
             })
-        saved_img, processed_img, limit = create_default_image(image)
-        return JsonResponse({
-            "code": "success",
-            "limit": limit,
-            "message": {
-                "image": f'{settings.SITE_URL}{saved_img.image.url}',
-                "processed_img": f'{settings.SITE_URL}{processed_img.processed_image.url}' if processed_img else '',
-            },
-        }) 
+        try:
+            saved_img, processed_img, limit = create_default_image(image)
+            return JsonResponse({
+                "code": "success",
+                "limit": limit,
+                "message": {
+                    "image": f'{settings.SITE_URL}{saved_img.image.url}',
+                    "processed_img": f'{settings.SITE_URL}{processed_img.processed_image.url}' if processed_img else '',
+                },
+            }) 
+        except Exception as e:
+            print("Fotoğraf işlenirken hata meydana geldi")
+            return JsonResponse({
+                "code": "error",
+                "limit": False,
+                "message": f"An error has occurred. {e}"
+            }) 
+
     return JsonResponse({
         "code": "error",
         "limit": False,
