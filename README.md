@@ -4,6 +4,10 @@ Person alarm is a API service for detecting distance between the detected person
 
 This repository is just for API service. If you curious about ESP32-CAM code, go to [Persona-Alarm---ESP repository](https://github.com/umtdemr/Persona-Alarm---ESP)
 
+## Screenshot
+
+![Usage example](/public/person-alarm.jpeg)
+
 ## Running the app and the telegram bot
 
 * Clone the repository
@@ -17,3 +21,5 @@ This repository is just for API service. If you curious about ESP32-CAM code, go
   * Firstly, you should create an admin user with ```python manage.py createsuperuser```
   * After that go to [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) and create Sitesettings object
 * Start the telegram bot for listening users commands: ```python manage.py startbot```
+
+
