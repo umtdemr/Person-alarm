@@ -56,8 +56,6 @@ def create_default_image(image, process_it=True) -> Image:
                         caption="limit aşıldı",
                     )
 
-                print(f'Successfully created processed img: {processed_obj}')
-                print('deleting temp image')
                 # delete unneccessary image cuz it is duplicated
                 os.remove(f'media/{final_filename}')
                 return image_obj, processed_obj, is_limit_exceeded
@@ -70,7 +68,6 @@ def capture_photo():
     count = 0
     cap = cv2.VideoCapture(0)
     while True:
-        print(count)
         count += 1
 
         ret, frame = cap.read()

@@ -12,12 +12,9 @@ from core.utils import (
 )
 
 def process_img():
-    print(os.getcwd())
     weight_path = 'core/utils/yolo/yolov3.weights'
     cfg_path = 'core/utils/yolo/yolov3.cfg'
     img_path = 'media/me.jpeg'
-    print(weight_path)
-    print(cfg_path)
     yolo = cv2.dnn.readNet(weight_path, cfg_path)
 
     classes = get_classes()
@@ -72,7 +69,6 @@ def process_img():
         label = str(classes[class_ids[i]])
         confi = str(round(confidences[i], 2))
         confi_percent = int(confidences[i] * 100)
-        print(confi_percent)
         color = colors[i]
         box = boxes[i]
 
@@ -102,5 +98,4 @@ def process_img():
 
 
     writed = cv2.imwrite('media/deneme.jpeg', img)
-    print(writed)
     return writed

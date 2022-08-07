@@ -29,14 +29,11 @@ def process_img(image_obj):
     """
     settings_obj = SiteSettings.objects.first()
     is_limit_exceeded = False
-    print(image_obj.image.url)
-    print(os.getcwd())
+
     weight_path = 'core/utils/yolo/yolov3.weights'
     cfg_path = 'core/utils/yolo/yolov3.cfg'
     img_path = image_obj.image.url[1:] # getting the image url without the first backslash
-    print(weight_path)
-    print(cfg_path)
-    print(img_path)
+    
     yolo = cv2.dnn.readNet(weight_path, cfg_path)
 
     classes = get_classes()
@@ -90,7 +87,6 @@ def process_img(image_obj):
         label = str(classes[class_ids[i]])
         confi = str(round(confidences[i], 2))
         confi_percent = int(confidences[i] * 100)
-        print(confi_percent)
         color = colors[i]
         box = boxes[i]
 
@@ -122,5 +118,4 @@ def process_img(image_obj):
 
     final_filename = f'{str(uuid.uuid4()).replace("-", "")}.jpeg'
     writed = cv2.imwrite(f'media/{final_filename}', img)
-    print(writed)
     return writed, final_filename, is_limit_exceeded

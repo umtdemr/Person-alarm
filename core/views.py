@@ -41,7 +41,6 @@ def upload_file_view(request):
                     },
                 }) 
             except Exception as e:
-                print("Fotoğraf işlenirken hata meydana geldi")
                 return JsonResponse({
                     "code": "error",
                     "limit": False,

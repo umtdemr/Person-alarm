@@ -29,7 +29,6 @@ def get_captured_data():
         new_y.append(item.get('time'))
         new_x.append(full_dates.get(item.get('parent')))
 
-    # print(full_dates.find())
     fig = px.scatter(x=new_x, y=new_y, range_x=[week_ago, now], title="Haftalık hareketlilik")
     return fig
 
